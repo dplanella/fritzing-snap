@@ -1,7 +1,8 @@
 name: fritzing
 version: 1
 summary: Fritzing is an open source PCB design tool
-description: Fritzing is an open source design automation tool which allows engineers and non-engineers alike to produce printed circuit boards
+description: Easy-to-use, electronic design software.  Fritzing is an open source project designed to help one transition from a prototype to a finished project.  Aimed at users who want to produce or document circuits and experiments, one starts by building a physical prototype, then recreating it with Fritzing’s graphical editor.  From there one can generate a schematic, PCB artwork, and PCB production files.
+
 
 apps:
     fritzing:
@@ -9,42 +10,39 @@ apps:
         plugs: [x11, unity7, home, opengl, network]
 
 parts:
-    upstream-src:
+    libgit2:
         plugin: cmake
-        configflags: [-DCMAKE_INSTALL_PREFIX=/usr]
-        source: https://github.com/fritzing/fritzing-app.git
-        source-type: git
+        source: https://github.com/libgit2/libgit2.git
+        source-branch: maint/v0.23
+        source-type: git        
+    fritzing:
+        after: [libgit2]
+        plugin: qmake
+        source: .
+        #source-type: git
         build-packages:
             -   cmake
-#            -   libqt4-assistant
-            -   libqt4-dbus
-            -   libqt4-help
-            -   libqt4-network
-            -   libqt4-opengl
-            -   libqt4-script
-            -   libqt4-xmlpatterns
-            -   libqt4-xml
-            -   libqtcore4
-            -   libqtgui4
-            -   libstdc++6
-            -   libc6
-            -   libqt4-sql
-            -   libqt4-svg
-            -   libqt4-webkit
+            -   libssl-dev
+            -   libboost-dev
+            -   libboost1.58-dev
+            -   libgl1-mesa-dev
+            -   libgles2-mesa
+            -   libgles2-mesa-dev
+            -   libglu1-mesa-dev
+            -   libqt5concurrent5
+            -   libqt5serialport5
+            -   libqt5serialport5-dev
+            -   libqt5svg5-dev
+            -   mesa-common-dev
+            -   qt5-qmake
+            -   qtbase5-dev
+            -   qtbase5-dev-tools
+            -   sqlite3
         stage-packages:
-#            -   libqt4-assistant
-            -   libqt4-dbus
-            -   libqt4-help
-            -   libqt4-network
-            -   libqt4-opengl
-            -   libqt4-script
-            -   libqt4-xmlpatterns
-            -   libqt4-xml
-            -   libqtcore4
-            -   libqtgui4
-            -   libstdc++6
-            -   libc6
-            -   libqt4-sql
-            -   libqt4-svg
-            -   libqt4-webkit
+            -   libgles2-mesa
+            -   libqt5concurrent5
+            -   libqt5serialport5
+            -   qt5-qmake
+            -   qtbase5-dev-tools
+            -   sqlite3
 
