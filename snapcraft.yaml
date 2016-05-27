@@ -1,0 +1,50 @@
+name: fritzing
+version: 1
+summary: Fritzing is an open source PCB design tool
+description: Fritzing is an open source design automation tool which allows engineers and non-engineers alike to produce printed circuit boards
+
+apps:
+    fritzing:
+        command: qt5-launch usr/bin/fritzing
+        plugs: [x11, unity7, home, opengl, network]
+
+parts:
+    upstream-src:
+        plugin: cmake
+        configflags: [-DCMAKE_INSTALL_PREFIX=/usr]
+        source: https://github.com/fritzing/fritzing-app.git
+        source-type: git
+        build-packages:
+            -   cmake
+#            -   libqt4-assistant
+            -   libqt4-dbus
+            -   libqt4-help
+            -   libqt4-network
+            -   libqt4-opengl
+            -   libqt4-script
+            -   libqt4-xmlpatterns
+            -   libqt4-xml
+            -   libqtcore4
+            -   libqtgui4
+            -   libstdc++6
+            -   libc6
+            -   libqt4-sql
+            -   libqt4-svg
+            -   libqt4-webkit
+        stage-packages:
+#            -   libqt4-assistant
+            -   libqt4-dbus
+            -   libqt4-help
+            -   libqt4-network
+            -   libqt4-opengl
+            -   libqt4-script
+            -   libqt4-xmlpatterns
+            -   libqt4-xml
+            -   libqtcore4
+            -   libqtgui4
+            -   libstdc++6
+            -   libc6
+            -   libqt4-sql
+            -   libqt4-svg
+            -   libqt4-webkit
+
