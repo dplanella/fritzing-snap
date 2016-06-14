@@ -14,12 +14,15 @@ parts:
         plugin: cmake
         source: https://github.com/libgit2/libgit2.git
         source-branch: maint/v0.23
-        source-type: git        
+        source-type: git
+        build-packages:
+            -   libssl-dev
     fritzing:
         after: [libgit2]
         plugin: qmake
-        source: .
+        source: ./fritzing-src/
         #source-type: git
+        project-file: fritzing-snapcraft.pro
         build-packages:
             -   cmake
             -   libssl-dev

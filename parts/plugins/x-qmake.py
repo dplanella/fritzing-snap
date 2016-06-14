@@ -23,6 +23,9 @@ class QmakePlugin(snapcraft.BasePlugin):
         # change in the YAML Snapcraft will consider the build step dirty.
         schema['build-properties'].append('configflags')
 
+        # Add an option to pass the name of the .pro file to be used
+        schema['properties']['project-file'] = {type: 'string'}
+
         return schema
 
     def __init__(self, name, options, project):
@@ -45,7 +48,12 @@ class QmakePlugin(snapcraft.BasePlugin):
 
         # Run qmake to generate a Makefile
         print(env)
-        self.run(['qmake'], env=env)
+        if self.options.project_file is not None:
+            print("Running my special mode")
+            print(self.options.project_file)
+            self.run(['qmake', self.options.project_file], env=env)
+        else:
+            self.run(['qmake'], env=env)
 
         # Run make to build the sources
         self.run(['make', '-j{}'.format(self.project.parallel_build_count)], env=env)
@@ -55,6 +63,7 @@ class QmakePlugin(snapcraft.BasePlugin):
 
     def _build_environment(self):
         env = os.environ.copy()
+        print()
         env['QT_SELECT'] = '5'
         env['LFLAGS'] = '-L ' +  ' -L'.join(
             ['{0}/lib', '{0}/usr/lib', '{0}/lib/{1}',
@@ -72,5 +81,6 @@ class QmakePlugin(snapcraft.BasePlugin):
             ['{0}/lib', '{0}/usr/lib', '{0}/lib/{1}',
              '{0}/usr/lib/{1}']).format(
                 self.project.stage_dir, self.project.arch_triplet)
+        env['SNAPPY_BUILD'] = "1"
         return env
 
