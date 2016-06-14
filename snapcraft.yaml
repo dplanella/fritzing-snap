@@ -6,10 +6,15 @@ description: Easy-to-use, electronic design software.  Fritzing is an open sourc
 
 apps:
     fritzing:
-        command: qt5-launch usr/bin/fritzing
+        command: fritzlaunch
         plugs: [x11, unity7, home, opengl, network]
 
 parts:
+    launcher:
+        plugin: copy
+        files:
+            fritzlaunch: bin/fritzlaunch
+        
     libgit2:
         plugin: cmake
         source: https://github.com/libgit2/libgit2.git
