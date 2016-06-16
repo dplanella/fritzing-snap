@@ -1,20 +1,21 @@
 name: fritzing
 version: 1
 summary: Fritzing is an open source PCB design tool
-description: Easy-to-use, electronic design software.  Fritzing is an open source project designed to help one transition from a prototype to a finished project.  Aimed at users who want to produce or document circuits and experiments, one starts by building a physical prototype, then recreating it with Fritzing’s graphical editor.  From there one can generate a schematic, PCB artwork, and PCB production files.
-
+description: | 
+  Easy-to-use, electronic design software.  Fritzing is an open source project
+  designed to help one transition from a prototype to a finished project.  Aimed
+  at users who want to produce or document circuits and experiments, one starts
+  by building a physical prototype, then recreating it with Fritzing’s graphical
+  editor.  From there one can generate a schematic, PCB artwork, and PCB
+  production files.
+confinement: devmode
 
 apps:
     fritzing:
-        command: fritzlaunch
+        command: qt5-launch Fritzing
         plugs: [x11, unity7, home, opengl, network]
 
 parts:
-    launcher:
-        plugin: copy
-        files:
-            fritzlaunch: bin/fritzlaunch
-        
     libgit2:
         plugin: cmake
         source: https://github.com/libgit2/libgit2.git
@@ -23,7 +24,7 @@ parts:
         build-packages:
             -   libssl-dev
     fritzing:
-        after: [libgit2]
+        after: [qt5conf, libgit2]
         plugin: qmake
         source: ./fritzing-src/
         #source-type: git
